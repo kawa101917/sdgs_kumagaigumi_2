@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>熊谷組とSDGs | </title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: "Friendly Nature" - A palette using warm neutrals (beige, brown) with soft, encouraging accents (sky blue, leaf green, sun yellow) to create a friendly, educational, and nature-conscious atmosphere. -->
+    <!-- Application Structure Plan: The SPA is designed as a single-page, vertical scrolling narrative. The structure is thematic rather than mirroring a formal report. It starts with broad concepts ("What are SDGs?") and narrows down to specific examples ("How Kumagai Gumi helps"). The core is an interactive section where users click on a project type (e.g., Tunnels, Wind Power) and see a visual explanation of how it connects to a specific SDG goal. This direct cause-and-effect interaction is more intuitive and memorable for young learners than charts or dense text. The flow is designed to build understanding step-by-step, from the general to the specific, culminating in a simple, empowering summary. -->
+    <!-- Visualization & Content Choices: Instead of data charts, which are too abstract for the target audience, the app uses interactive HTML cards and icons. For instance, clicking the "トンネル" (Tunnel) button (Goal: Organize & Relate) updates a display area to show an explanation and visually highlights SDG 9's icon (Presentation Method: Interactive Diagram). This interaction directly links a concrete action (building a tunnel) to an abstract goal (SDG 9), which is a highly effective teaching method (Justification). All visuals are created using Tailwind CSS and Unicode characters, avoiding complex libraries and focusing on clarity and engagement. This supports the narrative structure and educational goal. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #FDFBF5; /* Warm Beige */
+        }
+        h1, h2, h3 {
+            font-family: 'Mochiy Pop One', sans-serif;
+        }
+        .sdg-card {
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        .sdg-card.highlight {
+            transform: scale(1.1) rotate(3deg);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border: 4px solid #FBBF24; /* Amber-400 */
+        }
+        .content-panel {
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+        }
+        .content-panel.hidden {
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+            position: absolute;
+        }
+        .nav-button.active {
+            background-color: #38A169; /* Green-600 */
+            color: white;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <h1 class="text-xl md:text-2xl text-green-800">熊谷組とSDGsのひみつ</h1>
+            <nav class="hidden md:flex space-x-4">
+                <a href="#intro" class="text-gray-600 hover:text-green-700 transition">SDGsって？</a>
+                <a href="#kumagai" class="text-gray-600 hover:text-green-700 transition">熊谷組って？</a>
+                <a href="#connect" class="text-gray-600 hover:text-green-700 transition">つながり発見！</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="text-center py-16 md:py-24 px-4 bg-emerald-50">
+            <div class="container mx-auto">
+                <h2 class="text-3xl md:text-5xl mb-4 text-green-800">未来の地球を、つくろう！</h2>
+                <p class="text-lg md:text-xl max-w-3xl mx-auto text-gray-700 mb-8">
+                    「熊谷組」のお仕事が、世界を良くするための目標「SDGs」とどう関係しているのか、一緒に探検してみよう！
+                </p>
+                <a href="#intro" class="bg-amber-400 hover:bg-amber-500 text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg transition transform hover:scale-105">
+                    探検をはじめる！
+                </a>
+            </div>
+        </section>
+
+        <section id="intro" class="py-16 md:py-20 px-4">
+            <div class="container mx-auto">
+                <div class="text-center mb-12">
+                    <span class="text-sm bg-sky-200 text-sky-800 font-bold px-3 py-1 rounded-full">はじめに</span>
+                    <h2 class="text-3xl md:text-4xl mt-4">SDGsって、なんだろう？</h2>
+                    <p class="mt-4 max-w-2xl mx-auto text-gray-600">
+                        SDGs（エスディージーズ）は、世界中のみんなが2030年までに達成したい「17個の大きな目標」のこと。貧困や環境問題などを解決して、地球に住むすべての人が、ずっと幸せに暮らせる未来を目指すための大切な約束なんだ。
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-3 sm:grid-cols-6 lg:grid-cols-9 gap-2 md:gap-4 max-w-5xl mx-auto">
+                    <div class="aspect-square bg-red-500 flex items-center justify-center p-2 rounded-lg shadow-md"><span class="text-white font-bold text-center text-xs sm:text-sm">1. 貧困をなくそう</span></div>
+                    <div class="aspect-square bg-orange-400 flex items-center justify-center p-2 rounded-lg shadow-md"><span class="text-white font-bold text-center text-xs sm:text-sm">2. 飢餓をゼロに</span></div>
+                    <div class="aspect-square bg-green-500 flex items-center justify-center p-2 rounded-lg shadow-md"><span class="text-white font-bold text-center text-xs sm:text-sm">3. すべての人に健康と福祉を</span></div>
+                    <div class="aspect-square bg-red-600 flex items-center justify-center p-2 rounded-lg shadow-md"><span class="text-white font-bold text-center text-xs sm:text-sm">4. 質の高い教育をみんなに</span></div>
+                    <div class="aspect-square bg-orange-500 flex items-center justify-center p-2 rounded-lg shadow-md"><span class="text-white font-bold text-center text-xs sm:text-sm">5. ジェンダー平等を実現しよう</span></div>
+                    <div class="aspect-square bg-cyan-400 flex items-center justify-center p-2 rounded-lg shadow-md"><span class="text-white font-bold text-center text-xs sm:text-sm">6. 安全な水とトイレを世界中に</span></div>
+                    <div class="aspect-square bg-yellow-400 flex items-center justify-center p-2 rounded-lg shadow-md"><span class="text-white font-bold text-center text-xs sm:text-sm">7. エネルギーをみんなにそしてクリーンに</span></div>
+                    <div class="aspect-square bg-rose-700 flex items-center justify-center p-2 rounded-lg shadow-md"><span class="text-white font-bold text-center text-xs sm:text-sm">8. 働きがいも経済成長も</span></div>
+                    <div class="aspect-square bg-orange-600 flex items-center justify-center p-2 rounded-lg shadow-md"><span class="text-white font-bold text-center text-xs sm:text-sm">9. 産業と技術革新の基盤をつくろう</span></div>
+                    <div class="aspect-square bg-pink-500 flex items-center justify-center p-2 rounded-lg shadow-md"><span class="text-white font-bold text-center text-xs sm:text-sm">10. 人や国の不平等をなくそう</span></div>
+                    <div class="aspect-square bg-yellow-500 flex items-center justify-center p-2 rounded-lg shadow-md"><span class="text-white font-bold text-center text-xs sm:text-sm">11. 住み続けられるまちづくりを</span></div>
+                    <div class="aspect-square bg-yellow-600 flex items-center justify-center p-2 rounded-lg shadow-md"><span class="text-white font-bold text-center text-xs sm:text-sm">12. つくる責任 つかう責任</span></div>
+                    <div class="aspect-square bg-lime-600 flex items-center justify-center p-2 rounded-lg shadow-md"><span class="text-white font-bold text-center text-xs sm:text-sm">13. 気候変動に具体的な対策を</span></div>
+                    <div class="aspect-square bg-sky-600 flex items-center justify-center p-2 rounded-lg shadow-md"><span class="text-white font-bold text-center text-xs sm:text-sm">14. 海の豊かさを守ろう</span></div>
+                    <div class="aspect-square bg-green-600 flex items-center justify-center p-2 rounded-lg shadow-md"><span class="text-white font-bold text-center text-xs sm:text-sm">15. 陸の豊かさも守ろう</span></div>
+                    <div class="aspect-square bg-blue-800 flex items-center justify-center p-2 rounded-lg shadow-md"><span class="text-white font-bold text-center text-xs sm:text-sm">16. 平和と公正をすべての人に</span></div>
+                    <div class="aspect-square bg-indigo-900 flex items-center justify-center p-2 rounded-lg shadow-md"><span class="text-white font-bold text-center text-xs sm:text-sm">17. パートナーシップで目標を達成しよう</span></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="kumagai" class="py-16 md:py-20 px-4 bg-stone-100">
+            <div class="container mx-auto">
+                <div class="text-center mb-12">
+                     <span class="text-sm bg-green-200 text-green-800 font-bold px-3 py-1 rounded-full">会社しょうかい</span>
+                    <h2 class="text-3xl md:text-4xl mt-4">じゃあ、熊谷組って？</h2>
+                    <p class="mt-4 max-w-2xl mx-auto text-gray-600">
+                        熊谷組は、みんなが毎日使うものや、まちのシンボルになるような大きなものを作る会社だよ。道路やトンネル、ダムのような巨大な土木施設から、オフィスビルや学校、マンションなどの建築物まで、幅広い「ものづくり」で社会を支えているんだ。
+                    </p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-8">
+                    <div class="bg-white p-6 rounded-xl shadow-lg text-center">
+                        <div class="text-5xl mb-4">🌉</div>
+                        <h3 class="text-xl font-bold mb-2">トンネルや道路</h3>
+                        <p class="text-gray-600">人や車が安全でスムーズに通れるようにする。</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg text-center">
+                        <div class="text-5xl mb-4">🏢</div>
+                        <h3 class="text-xl font-bold mb-2">大きなビル</h3>
+                        <p class="text-gray-600">みんなが働いたり、学んだりする場所をつくる。</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg text-center">
+                        <div class="text-5xl mb-4">💨</div>
+                        <h3 class="text-xl font-bold mb-2">風力発電所</h3>
+                        <p class="text-gray-600">風の力で、クリーンな電気をつくりだす。</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg text-center">
+                        <div class="text-5xl mb-4">💧</div>
+                        <h3 class="text-xl font-bold mb-2">水力発電所やダム</h3>
+                        <p class="text-gray-600">水を大切に使い、きれいなエネルギーを作る。</p>
+                    </div>
+                     <div class="bg-white p-6 rounded-xl shadow-lg text-center">
+                        <div class="text-5xl mb-4">🌳</div>
+                        <h3 class="text-xl font-bold mb-2">自然を守る技術</h3>
+                        <p class="text-gray-600">環境にやさしい特別なコンクリートを使う。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="connect" class="py-16 md:py-20 px-4">
+            <div class="container mx-auto">
+                <div class="text-center mb-12">
+                     <span class="text-sm bg-amber-200 text-amber-800 font-bold px-3 py-1 rounded-full">つながり発見！</span>
+                    <h2 class="text-3xl md:text-4xl mt-4">お仕事とSDGsのつながりを見てみよう！</h2>
+                    <p class="mt-4 max-w-3xl mx-auto text-gray-600">
+                        熊谷組のお仕事は、SDGsの目標達成にたくさん貢献しているんだ。下のボタンを押して、どんな「つながり」があるのか見てみよう！
+                    </p>
+                </div>
+
+                <div class="flex flex-wrap justify-center gap-3 md:gap-4 mb-8" id="nav-buttons">
+                    <button data-target="tunnel" class="nav-button active text-lg py-2 px-5 rounded-full bg-white shadow hover:bg-gray-100 transition transform hover:-translate-y-1">🌉 トンネル</button>
+                    <button data-target="energy" class="nav-button text-lg py-2 px-5 rounded-full bg-white shadow hover:bg-gray-100 transition transform hover:-translate-y-1">💨 風力発電</button>
+                    <button data-target="building" class="nav-button text-lg py-2 px-5 rounded-full bg-white shadow hover:bg-gray-100 transition transform hover:-translate-y-1">🏢 安全なまち</button>
+                    <button data-target="water" class="nav-button text-lg py-2 px-5 rounded-full bg-white shadow hover:bg-gray-100 transition transform hover:-translate-y-1">💧 水とエネルギー</button>
+                    <button data-target="eco" class="nav-button text-lg py-2 px-5 rounded-full bg-white shadow hover:bg-gray-100 transition transform hover:-translate-y-1">🌳 地球温暖化対策</button>
+                </div>
+
+                <div class="relative max-w-4xl mx-auto bg-white rounded-2xl shadow-xl p-6 md:p-8 min-h-[450px]">
+                    <div id="tunnel-content" class="content-panel">
+                        <div class="grid md:grid-cols-2 gap-8 items-center">
+                            <div>
+                                <h3 class="text-2xl font-bold text-orange-600 mb-4">技術で、未来の道をつくる</h3>
+                                <p class="text-gray-700 mb-4">
+                                    長くて安全なトンネルや、丈夫な道路をつくることで、人やモノの移動がもっとスムーズで安全になるよ。これは、みんなの生活や経済を支える大切な社会の「基盤（きばん）」づくりにつながっているんだ。
+                                </p>
+                                <div class="bg-gray-100 p-4 rounded-lg">
+                                    <p class="font-bold">つながるSDGs目標は…</p>
+                                    <p class="text-lg font-bold text-orange-600">9番: 産業と技術革新の基盤をつくろう</p>
+                                </div>
+                            </div>
+                            <div class="flex justify-center">
+                                <div id="sdg-9-card" class="sdg-card w-48 h-48 bg-orange-600 flex items-center justify-center p-4 rounded-lg shadow-lg">
+                                    <span class="text-white font-bold text-center text-xl">産業と技術革新の基盤をつくろう</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="energy-content" class="content-panel hidden">
+                         <div class="grid md:grid-cols-2 gap-8 items-center">
+                            <div>
+                                <h3 class="text-2xl font-bold text-yellow-500 mb-4">自然の力で、電気をつくる</h3>
+                                <p class="text-gray-700 mb-4">
+                                    熊谷組は、風の力で電気をつくる「風力発電所」の建設も得意だよ。石油や石炭を燃やさないから、地球温暖化の原因になるガスを出さないんだ。地球にやさしいクリーンなエネルギーを増やすお手伝いをしているよ。
+                                </p>
+                                <div class="bg-gray-100 p-4 rounded-lg">
+                                    <p class="font-bold">つながるSDGs目標は…</p>
+                                    <p class="text-lg font-bold text-yellow-500">7番: エネルギーをみんなに そしてクリーンに</p>
+                                </div>
+                            </div>
+                            <div class="flex justify-center">
+                                <div id="sdg-7-card" class="sdg-card w-48 h-48 bg-yellow-400 flex items-center justify-center p-4 rounded-lg shadow-lg">
+                                    <span class="text-white font-bold text-center text-xl">エネルギーをみんなに そしてクリーンに</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="building-content" class="content-panel hidden">
+                         <div class="grid md:grid-cols-2 gap-8 items-center">
+                            <div>
+                                <h3 class="text-2xl font-bold text-amber-600 mb-4">災害に強い、まちをつくる</h3>
+                                <p class="text-gray-700 mb-4">
+                                    日本は地震が多い国。だから、大きな揺れにも耐えられる丈夫なビルや建物をつくることが、とっても重要なんだ。みんなが安心して暮らせるまちをつくることで、未来もずっと住み続けられる社会を目指しているよ。
+                                </p>
+                                <div class="bg-gray-100 p-4 rounded-lg">
+                                    <p class="font-bold">つながるSDGs目標は…</p>
+                                    <p class="text-lg font-bold text-amber-600">11番: 住み続けられるまちづくりを</p>
+                                </div>
+                            </div>
+                            <div class="flex justify-center">
+                                <div id="sdg-11-card" class="sdg-card w-48 h-48 bg-yellow-500 flex items-center justify-center p-4 rounded-lg shadow-lg">
+                                    <span class="text-white font-bold text-center text-xl">住み続けられるまちづくりを</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="water-content" class="content-panel hidden">
+                        <div class="grid md:grid-cols-2 gap-8 items-center">
+                            <div>
+                                <h3 class="text-2xl font-bold text-blue-500 mb-4">水と電気を大切に使う</h3>
+                                <p class="text-gray-700 mb-4">
+                                    ダムは、雨が降った水をためて、必要なときに使ったり、水の力で電気をつくるために使われたりするよ。安全な水資源を守り、クリーンなエネルギーを生み出すことで、SDGsの目標に貢献しているんだ。
+                                </p>
+                                <div class="bg-gray-100 p-4 rounded-lg">
+                                    <p class="font-bold">つながるSDGs目標は…</p>
+                                    <p class="text-lg font-bold text-cyan-600">6番: 安全な水とトイレを世界中に</p>
+                                    <p class="text-lg font-bold text-yellow-500">7番: エネルギーをみんなに そしてクリーンに</p>
+                                </div>
+                            </div>
+                            <div class="flex justify-center">
+                                <div id="sdg-6-card" class="sdg-card w-48 h-48 bg-cyan-400 flex items-center justify-center p-4 rounded-lg shadow-lg">
+                                    <span class="text-white font-bold text-center text-xl">安全な水とトイレを世界中に</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="eco-content" class="content-panel hidden">
+                         <div class="grid md:grid-cols-2 gap-8 items-center">
+                            <div>
+                                <h3 class="text-2xl font-bold text-lime-700 mb-4">CO₂を吸う、すごいコンクリート！</h3>
+                                <p class="text-gray-700 mb-4">
+                                    熊谷組は、固まるときに地球温暖化の原因になる二酸化炭素（CO₂）を吸い込んでくれる、特別なコンクリート「CO₂-SUICOM」という技術を持っているんだ。建物をつくりながら、地球の空気をきれいにする。そんな未来の技術で気候変動に立ち向かっているよ。
+                                </p>
+                                <div class="bg-gray-100 p-4 rounded-lg">
+                                    <p class="font-bold">つながるSDGs目標は…</p>
+                                    <p class="text-lg font-bold text-lime-700">13番: 気候変動に具体的な対策を</p>
+                                </div>
+                            </div>
+                            <div class="flex justify-center">
+                                <div id="sdg-13-card" class="sdg-card w-48 h-48 bg-lime-600 flex items-center justify-center p-4 rounded-lg shadow-lg">
+                                    <span class="text-white font-bold text-center text-xl">気候変動に具体的な対策を</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-emerald-50 py-16 md:py-24 px-4">
+            <div class="container mx-auto text-center">
+                <h2 class="text-3xl md:text-4xl mb-4 text-green-800">君も未来をつくる一員だ！</h2>
+                <p class="text-lg md:text-xl max-w-3xl mx-auto text-gray-700 mb-8">
+                    熊谷組のように、一つの会社の仕事が、世界を良くするためのたくさんの目標につながっていることがわかったかな？<br>
+                    君が毎日使う電気を大切にしたり、ごみを分別したりすることも、SDGsへの大切な一歩だよ。
+                </p>
+                 <div class="bg-white p-6 rounded-xl shadow-lg inline-block">
+                    <h3 class="text-xl font-bold mb-2">クイズに挑戦！</h3>
+                    <p class="text-gray-600 mb-4">今日学んだことをクイズで復習してみよう！</p>
+                    <p class="text-2xl">🎓📝✨</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="bg-gray-800 text-white text-center py-6">
+        <p>&copy; 2025 未来をつくる教室</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navButtons = document.querySelectorAll('.nav-button');
+            const contentPanels = document.querySelectorAll('.content-panel');
+            const sdgCards = document.querySelectorAll('.sdg-card');
+
+            function showContent(targetId) {
+                contentPanels.forEach(panel => {
+                    if (panel.id === `${targetId}-content`) {
+                        panel.classList.remove('hidden');
+                    } else {
+                        panel.classList.add('hidden');
+                    }
+                });
+
+                navButtons.forEach(button => {
+                    if (button.dataset.target === targetId) {
+                        button.classList.add('active');
+                    } else {
+                        button.classList.remove('active');
+                    }
+                });
+                
+                sdgCards.forEach(card => card.classList.remove('highlight'));
+                
+                const activeCard = document.querySelector(`#${targetId}-content .sdg-card`);
+                if (activeCard) {
+                    setTimeout(() => {
+                        activeCard.classList.add('highlight');
+                    }, 100);
+                }
+            }
+
+            navButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetId = button.dataset.target;
+                    showContent(targetId);
+                });
+            });
+
+            // Set initial state
+            showContent('tunnel');
+            
+            // Smooth scroll for anchors
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
